@@ -38,14 +38,14 @@ VectorInt * newVec(int size){
 	return newStruct;
 }
 
-int getDec(VectorInt * vec, int index){
+int getVec(VectorInt * vec, int index){
 	if(index < vec->size && index >= 0)
 		return vec->start[index];
 	else
 		return NULL;
 }
 
-void insertDec(VectorInt * vec, int index, int data){
+void insertVec(VectorInt * vec, int index, int data){
 	if(index < vec->size)
 		vec->start[index] = data;
 	else{
@@ -53,7 +53,7 @@ void insertDec(VectorInt * vec, int index, int data){
 	}
 }
 
-void pushDec(VectorInt * vec, int index, int data){
+void pushVec(VectorInt * vec, int index, int data){
 
 	if(index < vec->size){
 		if(vec->size + 1 <= vec->capacity){
@@ -97,7 +97,7 @@ void pushDec(VectorInt * vec, int index, int data){
 	}
 }
 
-void addBackDec(VectorInt * vec, int data){
+void addBackVec(VectorInt * vec, int data){
 	if(vec->size+1 <= vec->capacity){
 		vec->start[vec->size] = data;
 		vec->size += 1;
@@ -116,7 +116,7 @@ void addBackDec(VectorInt * vec, int data){
 	}
 }
 
-void addFrontDec(VectorInt * vec, int data){
+void addFrontVec(VectorInt * vec, int data){
 	if(vec->size + 1 <= vec->capacity){
 		vec->size += 1;
 		int * newArr = (int*)malloc(vec->capacity * sizeof(int *));
@@ -142,7 +142,7 @@ void addFrontDec(VectorInt * vec, int data){
 	}
 }
 
-void deleteElementDec(VectorInt * vec, int index){
+void deleteElementVec(VectorInt * vec, int index){
 	int i = 0;
 	int * newArr = (int*)malloc(vec->capacity * sizeof(int *));
 	if(index < vec->size){
@@ -161,7 +161,7 @@ void deleteElementDec(VectorInt * vec, int index){
 	}
 }
 
-void deleteValueDec(VectorInt * vec, int item){
+void deleteValueVec(VectorInt * vec, int item){
 	int * newArr = (int*)malloc(vec->capacity * sizeof(VectorInt));
 	int size = vec->size;
 	int index = 0;
@@ -182,14 +182,14 @@ void deleteValueDec(VectorInt * vec, int item){
 	vec->size = size;
 }
 
-int findDec(VectorInt * vec, int item){
+int findVec(VectorInt * vec, int item){
 	for(int i = 0; i < vec->size; i++){
 		if(vec->start[i] == item)
 			return i;
 	}
 }
 
-int * findAllDec(VectorInt * vec, int item){
+int * findAllVec(VectorInt * vec, int item){
 	int * items = (int*)malloc(vec->size * sizeof(int *));
 	memset(items, -1, vec->size * sizeof(int *));
 	int index = 0;
@@ -202,7 +202,7 @@ int * findAllDec(VectorInt * vec, int item){
 	return items;
 }
 
-void printVecDec(VectorInt * vector){
+void printVecVec(VectorInt * vector){
 	printf("[");
 	for(int i = 0; i < vector->size; i++){
 		if(vector->size == 1){
@@ -220,32 +220,32 @@ void printVecDec(VectorInt * vector){
 	printf("\n");
 }
 
-void printArray(int * array, int size){
-	//Input negative value for size for an array of undefined size
-	if(size < 0){
-		int i = 0;
-		printf("[");
-		while(array[i] >= 0){
-			if(array[i + 1] < 0){
-				printf("%d]\n", array[i]);
-			}
-			else
-				printf("%d, ", array[i]);
-			i++;
-		}
-		return;
-	}
-
-	printf("[");
-	for(int i = 0; i < size; i++){
-		if(i + 1 == size){
-			printf("%d", array[i]);
-			break;
-		}
-		printf("%d, ", array[i]);
-	}
-	printf("]\n");
-}
+//void printArray(int * array, int size){
+//	//Input negative value for size for an array of undefined size
+//	if(size < 0){
+//		int i = 0;
+//		printf("[");
+//		while(array[i] >= 0){
+//			if(array[i + 1] < 0){
+//				printf("%d]\n", array[i]);
+//			}
+//			else
+//				printf("%d, ", array[i]);
+//			i++;
+//		}
+//		return;
+//	}
+//
+//	printf("[");
+//	for(int i = 0; i < size; i++){
+//		if(i + 1 == size){
+//			printf("%d", array[i]);
+//			break;
+//		}
+//		printf("%d, ", array[i]);
+//	}
+//	printf("]\n");
+//}
 
 int size(VectorInt * vec){
 	return vec->size;
@@ -255,7 +255,7 @@ int capacity(VectorInt * vec){
 	return vec->capacity;
 }
 
-bool isEmptyDec(VectorInt * vec){
+bool isEmptyVec(VectorInt * vec){
 	if(vec->size > 0){
 		return true;
 	}
