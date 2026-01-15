@@ -33,6 +33,7 @@ char * fileRead(char * name){
 	return output;
 }
 
+
 void printArray(int * array, int length){
 	printf("[");
 	for(int i = 0; i < length; i++){
@@ -81,19 +82,16 @@ bool search(int key, int size,  DataItem * table[size]){
 	return false;
 }
 
+// *************************** end Hash table data structure *************************** 
 
 bool isIn(int num, int * array, int length){
 	for(int i = 0; i < length; i++){
 		if(num == array[i]){
-			printf("\n\n%d\n", num);
-			printf("v\n");
-			printArray(array, length);
 			return true;
 		}
 	}
 	return false;
 }
-// *************************** end Hash table data structure *************************** 
 
 
 int * copyInt(int * input, int length){
@@ -111,6 +109,87 @@ int * copyInt(int * input, int length){
 	}
 
 	return start;
+}
+
+
+int * mergeSort(int * array, int n){
+	int * temp = array;
+	int * A;
+	int * B;
+	int * startA;
+	int * startB;
+	int lenB = 0;
+	int lenA = 0;
+	int i = 0;
+	int j = 0;
+	//printf("\n\n-----------------------\nFirst element of current array: %d\nLength: %d\n-----------------------\n\n", *array, n);
+
+	if(n < 2){
+		//printf("\nReturned array\n");
+		return array;
+	}
+
+	else if(n%2 == 1){
+		//printf("\n\n-----------------------\nFirst element of current array: %d\nLength: %d\n-----------------------\n\n", *array, n);
+		lenA = (n - 1)/2;
+		lenB = (n - 1)/2 + 1;
+		A = mergeSort(copyInt(array, lenA), lenA);
+		startA = A;
+		B = mergeSort(copyInt(array + lenA, lenB), lenB);
+		startB = B;
+	}
+
+	else{
+		//printf("\n\n-----------------------\nFirst element of current array: %d\nLength: %d\n-----------------------\n\n", *array, n);
+		lenA = n/2;
+		lenB = n/2;
+		A = mergeSort(copyInt(array, lenA), lenA);
+		startA = A;
+		B = mergeSort(copyInt(array + lenB, lenB), lenB);
+		startB = B;
+	}
+
+	for(int k = 0; k < n; k++){
+		if(A == NULL){
+
+			*temp = *B;
+			if(j + 1 == lenB) B = NULL;
+			else j++, B++;
+		}
+
+		else if(B == NULL){
+
+			*temp = *A;
+			if(i + 1 == lenA) A = NULL;
+			else i++, A++;
+		}
+
+		else if(A != NULL && *A < *B){
+			*temp = *A;
+			if(i + 1 == lenA) A = NULL;
+			else i++, A++;
+
+		}
+
+		else if(B != NULL && *B < *A){
+			*temp = *B;
+			if(j + 1 == lenB) B = NULL;
+			else j++, B++;
+
+		}
+
+		else if(*B == *A){
+			*temp = *B;
+			if(j + 1 == lenB) B = NULL;
+			else j++, B++;
+		}
+
+		temp++;
+	}
+
+	free(startA);
+	free(startB);
+	return array;
 }
 
 char * copyChar(char * input, int length){
@@ -139,6 +218,25 @@ int stringLength(char * string){
 	}
 
 	return length;
+}
+
+char * toString(int num){
+	int temp = num;
+	int size;
+	while(temp != 0){
+		temp/=10;
+		size++;
+	}
+	size++;
+	char * string = (char*)malloc(size*sizeof(char));
+	string[size - 1] = '\0';
+	size--;
+	for(int i = 0; i < size; i++){
+		string[size-i-1] = '0' + num%10;
+		num -= num%10;
+		num/=10;
+	}
+	return string;
 }
 
 
