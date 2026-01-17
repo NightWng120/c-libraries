@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <math.h>
 
 #ifndef LIBRARY
 #define LIBRARY
@@ -219,6 +220,28 @@ int stringLength(char * string){
 
 	return length;
 }
+char ** splitString(char * string, int num){
+	int len = stringLength(string);
+	if(num >= len)
+		return NULL;
+	printf("meme\n");
+	char ** split = (char**)malloc(2 * sizeof(char *));
+	int size = 0;
+	split[0] = (char*)malloc(len * sizeof(char));
+	split[1] = (char*)malloc(len * sizeof(char));
+	for(int i = 0; i < num; i++){
+		split[0][i] = string[i];
+		//printf("%c\n", split[0][i]);
+		size++;
+	}
+	split[0][size] = '\0';
+	for(int i = 0; i < len - num; i++){
+		split[1][i] = string[size + i];
+		//printf("%c\n", split[1][i]);
+	}
+	split[1][len - num] = '\0';
+	return split;
+}
 
 char * toString(int num){
 	int temp = num;
@@ -235,6 +258,25 @@ char * toString(int num){
 		string[size-i-1] = '0' + num%10;
 		num -= num%10;
 		num/=10;
+	}
+	return string;
+}
+char * toStringDouble(double num){
+	double temp = num;
+	int size;
+	while(temp != 0.0){
+		temp -= fmod(temp, 10.0); 
+		temp/=10.0;
+		size++;
+	}
+	size++;
+	char * string = (char*)malloc(size*sizeof(char));
+	string[size - 1] = '\0';
+	size--;
+	for(int i = 0; i < size; i++){
+		string[size-i-1] = '0' + fmod(num, 10.0); 
+		num -= fmod(num, 10.0); 
+		num/=10.0;
 	}
 	return string;
 }
