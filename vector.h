@@ -24,13 +24,13 @@ typedef struct{
 VectorInt * newVec(int size){
 	VectorInt * newStruct = (VectorInt*)malloc(sizeof(VectorInt));
 	if(size > 0){
-		newStruct->size = 0;
-		newStruct->capacity = size;
-		int * newArr = (int*)malloc(size * sizeof(int *));
+		newStruct->size = size;
+		newStruct->capacity = size + 5;
+		int * newArr = (int*)malloc(newStruct->capacity * sizeof(int *));
 		newStruct->start = newArr;
 	}
 	else{
-		newStruct->size = 0;
+		newStruct->size = 1;
 		newStruct->capacity = 5;
 		int * newArr = (int*)malloc(5 * sizeof(int *));
 		newStruct->start = newArr;
@@ -42,7 +42,7 @@ int getVec(VectorInt * vec, int index){
 	if(index < vec->size && index >= 0)
 		return vec->start[index];
 	else
-		return NULL;
+		return -1;
 }
 
 void insertVec(VectorInt * vec, int index, int data){
@@ -202,7 +202,7 @@ int * findAllVec(VectorInt * vec, int item){
 	return items;
 }
 
-void printVecVec(VectorInt * vector){
+void printVec(VectorInt * vector){
 	printf("[");
 	for(int i = 0; i < vector->size; i++){
 		if(vector->size == 1){
